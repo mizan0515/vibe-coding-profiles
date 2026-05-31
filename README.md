@@ -1,10 +1,19 @@
 # Vibe-Coding Profile Pack Source
 
 Public-safe source material for building Codex and Claude Code profile packs.
-This folder is source guidance, not a live profile home. It references tracked
+This repository is source guidance, not a live profile home. It references tracked
 template files in this repository and keeps shared, Codex-specific, and
 Claude-specific instructions separate so a packager can assemble each profile
 without reading host-global profile folders or private manager rules.
+
+## What is included
+
+- `profiles/`: public source notes for shared, Codex, and Claude behavior.
+- `runtime/codex-desktop/profile-template/prompts/`: reusable Codex prompt assets.
+- `runtime/codex-desktop/profile-template/skills/`: selected Codex skills and assets.
+- `runtime/claude-code/profile-template/prompts/`: reusable Claude Code prompt assets.
+- `runtime/claude-code/profile-template/skills/`: selected Claude Code skills.
+- `examples/skillopt-*`: SkillOpt rollout fixtures for selected profile changes.
 
 ## Files
 

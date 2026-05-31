@@ -1,0 +1,129 @@
+{
+  "schema_version": "skill-optimization-validation-harness-v1",
+  "harness_id": "issue-907-manager-next-work-radar-medium-rollout",
+  "issue": "#810",
+  "subject": {
+    "skill_name": "manager-next-work-radar",
+    "optimization_goal": "Add evidence-ranked next-work recommendations without broadening the trigger or adopting SkillOpt as a dependency.",
+    "owner_surface": [
+      "runtime/codex-desktop/profile-template/skills/manager-next-work-radar/SKILL.md",
+      "runtime/codex-desktop/marketplace/plugins/codex-isolated-skills/skills/manager-next-work-radar/SKILL.md",
+      "examples/skillopt-medium-risk-rollout/manager-next-work-radar"
+    ],
+    "repo_local_only": true
+  },
+  "baseline": {
+    "kind": "current_skill",
+    "skill_path": "examples/skillopt-medium-risk-rollout/manager-next-work-radar/baseline/SKILL.md",
+    "summary": "Baseline has selected-repo resolution, dynamic discovery, portable fallback, and follow-up rules, but it does not rank next actions by evidence level or require a realistic dry-run signal before recommendation wording."
+  },
+  "candidate": {
+    "kind": "optimized_skill",
+    "skill_path": "examples/skillopt-medium-risk-rollout/manager-next-work-radar/candidate/SKILL.md",
+    "summary": "Candidate adds a recommendation ladder, evidence contract, realistic dry-run or real-use signal requirement, and rollback instructions."
+  },
+  "validation_set": [
+    {
+      "id": "case-01-frontmatter-trigger",
+      "requirement": "Preserve skill name and trigger discoverability.",
+      "baseline_result": "pass",
+      "candidate_result": "pass",
+      "must_preserve": true,
+      "evidence": "Baseline and candidate keep name manager-next-work-radar and a visible Trigger phrase."
+    },
+    {
+      "id": "case-02-selected-repo-portability",
+      "requirement": "Preserve selected repo and portable fallback boundaries.",
+      "baseline_result": "pass",
+      "candidate_result": "pass",
+      "must_preserve": true,
+      "evidence": "Candidate keeps selected repo resolution, projectless guard, and skill-owned portable fallback wording."
+    },
+    {
+      "id": "case-03-recommendation-ranking",
+      "requirement": "Prioritize unfinished manager-visible blockers and positive pilots before shiny new exploration.",
+      "baseline_result": "partial",
+      "candidate_result": "pass",
+      "must_preserve": true,
+      "evidence": "Candidate adds a Recommendation Ladder with rank labels including resume-blocked-high-value, finish-visible-incomplete, adopt-positive-pilot, refresh-evidence, and new-exploration."
+    },
+    {
+      "id": "case-04-realistic-dry-run-evidence",
+      "requirement": "Require realistic dry-run or real-use evidence before manager-facing next-work recommendations.",
+      "baseline_result": "partial",
+      "candidate_result": "pass",
+      "must_preserve": true,
+      "evidence": "Candidate adds an Evidence Contract requiring generated selected-repo report, projectless fallback run, bounded RefreshEcosystem run, or linked issue/PR/check/comment gate."
+    },
+    {
+      "id": "case-05-unverified-labeling",
+      "requirement": "Fixture-only, static-only, list-only, or missing evidence must be labeled UNVERIFIED and cannot become adoption advice.",
+      "baseline_result": "pass",
+      "candidate_result": "pass",
+      "must_preserve": true,
+      "evidence": "Candidate preserves list-only UNVERIFIED wording and adds explicit static/fixture/list-only recommendation labeling."
+    },
+    {
+      "id": "case-06-manager-boundary",
+      "requirement": "Preserve manager-only decision boundaries and external adoption guard.",
+      "baseline_result": "pass",
+      "candidate_result": "pass",
+      "must_preserve": true,
+      "evidence": "Candidate keeps manager-only decision list and the rule not to claim external tool adoption from radar output alone."
+    },
+    {
+      "id": "case-07-rollback",
+      "requirement": "Provide a rollback path for the accepted candidate.",
+      "baseline_result": "partial",
+      "candidate_result": "pass",
+      "must_preserve": true,
+      "evidence": "Candidate adds Rollback instructions pointing to rollback/SKILL.md and the harness plus radar tests."
+    }
+  ],
+  "protected_terms": {
+    "required_in_candidate": [
+      "Trigger:",
+      "Recommendation Ladder",
+      "Evidence Contract",
+      "realistic dry-run",
+      "UNVERIFIED",
+      "RefreshEcosystem",
+      "Rollback"
+    ],
+    "forbidden_candidate_patterns": [
+      "(?i)adopt\\s+external\\s+tools\\s+from\\s+the\\s+radar\\s+report\\s+alone",
+      "(?i)list-only\\s+claims\\s+are\\s+adoption\\s+evidence",
+      "(?i)recurring\\s+schedule\\s+is\\s+always\\s+safe",
+      "(?i)ask\\s+the\\s+manager\\s+to\\s+choose\\s+raw\\s+git"
+    ]
+  },
+  "rollback": {
+    "strategy": "Restore the rollback manager-next-work-radar SKILL.md if recommendation ranking becomes noisy or evidence labeling weakens.",
+    "steps": [
+      "Copy examples/skillopt-medium-risk-rollout/manager-next-work-radar/rollback/SKILL.md over both Codex Desktop manager-next-work-radar SKILL.md targets.",
+      "Rerun scripts/Test-SkillOptimizationValidationHarness.ps1 for this spec.",
+      "Rerun scripts/Test-ManagerNextWorkRadar.ps1.",
+      "Keep #907 open if realistic dry-run recommendation evidence regresses."
+    ]
+  },
+  "safety_boundaries": {
+    "skillopt_runtime_dependency_adopted": false,
+    "host_global_mutation": false,
+    "credential_or_secret_access": false,
+    "recursive_ai_or_subagent_call": false,
+    "destructive_or_irreversible_action": false,
+    "paid_billing_or_model_loop": false,
+    "public_release_or_share": false
+  },
+  "computed_result": {
+    "baseline_score": 11,
+    "candidate_score": 14,
+    "improved_cases": 3,
+    "regressions": 0,
+    "gate_passed": true
+  },
+  "final_decision": {
+    "decision": "adopt_with_changes",
+    "reason": "Candidate preserves selected-repo portability, ecosystem refresh boundaries, manager-only decision gates, and no external SkillOpt dependency while adding evidence-ranked recommendations, realistic dry-run requirements, and rollback proof."
+  }
+}

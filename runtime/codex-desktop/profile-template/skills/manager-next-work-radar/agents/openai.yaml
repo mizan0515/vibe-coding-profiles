@@ -1,0 +1,7 @@
+interface:
+  display_name: "다음작업 radar"
+  short_description: "현재 이슈, PR, 보류 작업, 외부 후보를 보고 다음 작업을 추천"
+  default_prompt: "Use $manager-next-work-radar. 다음 작업 뭐가 좋을지 현재 이슈, PR, 보류 작업, 외부 후보까지 보고 쉽게 추천해줘."
+
+policy:
+  allow_implicit_invocation: true

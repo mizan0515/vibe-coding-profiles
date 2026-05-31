@@ -1,0 +1,110 @@
+{
+  "schema_version": "skill-optimization-validation-harness-v1",
+  "harness_id": "issue-885-prompt-optimizer-medium-rollout",
+  "issue": "#810",
+  "subject": {
+    "skill_name": "prompt-optimizer",
+    "optimization_goal": "Add real-use and follow-through gates to repo prompt change mode without broadening the trigger.",
+    "owner_surface": [
+      "runtime/codex-desktop/profile-template/skills/prompt-optimizer/SKILL.md",
+      "runtime/codex-desktop/marketplace/plugins/codex-isolated-skills/skills/prompt-optimizer/SKILL.md",
+      "examples/skillopt-core-rollout/prompt-optimizer"
+    ],
+    "repo_local_only": true
+  },
+  "baseline": {
+    "kind": "current_skill",
+    "skill_path": "examples/skillopt-core-rollout/prompt-optimizer/baseline/SKILL.md",
+    "summary": "Baseline requires eval cases and before/after evidence but does not explicitly require decision/follow-through or fixture-only UNVERIFIED reporting."
+  },
+  "candidate": {
+    "kind": "optimized_skill",
+    "skill_path": "examples/skillopt-core-rollout/prompt-optimizer/candidate/SKILL.md",
+    "summary": "Candidate adds decision answered, success evidence, follow-through, and real-use evidence reporting."
+  },
+  "validation_set": [
+    {
+      "id": "case-01-frontmatter-trigger",
+      "requirement": "Preserve skill name and trigger discoverability.",
+      "baseline_result": "pass",
+      "candidate_result": "pass",
+      "must_preserve": true,
+      "evidence": "Baseline and candidate keep name prompt-optimizer and Trigger phrase."
+    },
+    {
+      "id": "case-02-decision-follow-through",
+      "requirement": "State the decision answered, success evidence, and follow-through before repo prompt changes.",
+      "baseline_result": "partial",
+      "candidate_result": "pass",
+      "must_preserve": true,
+      "evidence": "Candidate adds decision, success evidence, and follow-through requirements."
+    },
+    {
+      "id": "case-03-fixture-only-unverified",
+      "requirement": "Do not claim behavior improved from fixture-only evaluation.",
+      "baseline_result": "partial",
+      "candidate_result": "pass",
+      "must_preserve": true,
+      "evidence": "Candidate requires fixture-only behavior to remain UNVERIFIED until real-use or realistic dry-run evidence exists."
+    },
+    {
+      "id": "case-04-manager-boundary",
+      "requirement": "Preserve manager-only decision boundary for non-developer workflows.",
+      "baseline_result": "pass",
+      "candidate_result": "pass",
+      "must_preserve": true,
+      "evidence": "Candidate keeps routine git/GitHub/security ownership and manager-only decision wording."
+    },
+    {
+      "id": "case-05-rollback",
+      "requirement": "Preserve rollback path.",
+      "baseline_result": "pass",
+      "candidate_result": "pass",
+      "must_preserve": true,
+      "evidence": "Candidate keeps Large Skill Guidance rollback wording and artifact rollback file exists."
+    }
+  ],
+  "protected_terms": {
+    "required_in_candidate": [
+      "Trigger:",
+      "decision answered",
+      "real-use evidence",
+      "UNVERIFIED",
+      "follow-through",
+      "Rollback"
+    ],
+    "forbidden_candidate_patterns": [
+      "(?i)fixture-only\\s+is\\s+enough",
+      "(?i)no\\s+real-use\\s+evidence\\s+needed",
+      "(?i)ask\\s+the\\s+manager\\s+to\\s+inspect\\s+raw\\s+git"
+    ]
+  },
+  "rollback": {
+    "strategy": "Restore the baseline prompt-optimizer SKILL.md from the rollback artifact if the candidate over-triggers or weakens evidence reporting.",
+    "steps": [
+      "Copy examples/skillopt-core-rollout/prompt-optimizer/rollback/SKILL.md over both Codex Desktop prompt-optimizer SKILL.md targets.",
+      "Rerun scripts/Test-SkillOptimizationValidationHarness.ps1 for this spec.",
+      "Keep #885 open if real-use reporting regresses."
+    ]
+  },
+  "safety_boundaries": {
+    "skillopt_runtime_dependency_adopted": false,
+    "host_global_mutation": false,
+    "credential_or_secret_access": false,
+    "recursive_ai_or_subagent_call": false,
+    "destructive_or_irreversible_action": false,
+    "paid_billing_or_model_loop": false,
+    "public_release_or_share": false
+  },
+  "computed_result": {
+    "baseline_score": 8,
+    "candidate_score": 10,
+    "improved_cases": 2,
+    "regressions": 0,
+    "gate_passed": true
+  },
+  "final_decision": {
+    "decision": "adopt_with_changes",
+    "reason": "Candidate improves repo prompt change evidence and follow-through while preserving trigger, manager boundary, safety, and rollback."
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "schema_version": "skill-optimization-validation-harness-v1",
+  "harness_id": "issue-908-main-sync-core-rollout",
+  "issue": "#810",
+  "subject": {
+    "skill_name": "main-sync",
+    "optimization_goal": "Preserve merge/comment safety gates, auto-merge boundaries, and manager-risk stops in a high-risk core-control skill.",
+    "owner_surface": [
+      "runtime/codex-desktop/profile-template/skills/main-sync/SKILL.md",
+      "runtime/codex-desktop/marketplace/plugins/codex-isolated-skills/skills/main-sync/SKILL.md",
+      "examples/skillopt-core-rollout/main-sync"
+    ],
+    "repo_local_only": true
+  },
+  "baseline": {
+    "kind": "current_skill",
+    "skill_path": "examples/skillopt-core-rollout/main-sync/baseline/SKILL.md",
+    "summary": "Baseline requires PR and mergeability helpers but does not explicitly block readiness on comment follow-up, unresolved review state, manager-risk stops, or unknown mergeability."
+  },
+  "candidate": {
+    "kind": "optimized_skill",
+    "skill_path": "examples/skillopt-core-rollout/main-sync/candidate/SKILL.md",
+    "summary": "Candidate adds explicit stop gates for dirty worktrees, comment follow-up, unresolved review state, unknown mergeability, failed checks, manager-risk stops, auto-merge helper use, and rollback."
+  },
+  "validation_set": [
+    {
+      "id": "case-01-frontmatter-trigger",
+      "requirement": "Preserve skill name and trigger discoverability.",
+      "baseline_result": "pass",
+      "candidate_result": "pass",
+      "must_preserve": true,
+      "evidence": "Baseline and candidate keep name main-sync and Trigger phrase."
+    },
+    {
+      "id": "case-02-dirty-main-stop",
+      "requirement": "Stop on main/master branches and dirty worktree before PR or merge commands.",
+      "baseline_result": "partial",
+      "candidate_result": "pass",
+      "must_preserve": true,
+      "evidence": "Candidate has a Stop Gates section naming main/master and dirty worktree before push/PR/merge."
+    },
+    {
+      "id": "case-03-comment-review-gates",
+      "requirement": "Block PR_READY, merge-ready, and MERGED_DONE on comment follow-up, unresolved review, requested changes, failed checks, unknown mergeability, or missing linked issue evidence.",
+      "baseline_result": "partial",
+      "candidate_result": "pass",
+      "must_preserve": true,
+      "evidence": "Candidate explicitly names COMMENT_FOLLOWUP_NEEDED, ISSUE_COMMENT_FOLLOWUP_NEEDED, unresolved review thread, requested changes, failed checks, unknown mergeability, and missing linked issue."
+    },
+    {
+      "id": "case-04-auto-merge-manager-risk",
+      "requirement": "Use the auto-merge helper only after gates pass and stop for manager-only risk decisions.",
+      "baseline_result": "partial",
+      "candidate_result": "pass",
+      "must_preserve": true,
+      "evidence": "Candidate uses Invoke-CurrentPrAutoMerge.ps1 only after routine auto-merge conditions and manager-risk stop are clear."
+    },
+    {
+      "id": "case-05-open-pr-state",
+      "requirement": "Translate open PR state instead of leaving a vague ready-to-merge claim.",
+      "baseline_result": "pass",
+      "candidate_result": "pass",
+      "must_preserve": true,
+      "evidence": "Both baseline and candidate use Test-OpenPrManagerState.ps1 and forbid a ready-to-merge-only report."
+    },
+    {
+      "id": "case-06-safety-rollback",
+      "requirement": "Preserve no direct main push, no force push/destructive git, no credential access, no external SkillOpt dependency, and rollback.",
+      "baseline_result": "partial",
+      "candidate_result": "pass",
+      "must_preserve": true,
+      "evidence": "Candidate adds rollback plus explicit external SkillOpt, recursive AI, host-global, credential, paid, public release, and browser state boundaries."
+    }
+  ],
+  "protected_terms": {
+    "required_in_candidate": [
+      "Trigger:",
+      "dirty worktree",
+      "Test-CurrentPrMergeability.ps1",
+      "COMMENT_FOLLOWUP_NEEDED",
+      "ISSUE_COMMENT_FOLLOWUP_NEEDED",
+      "unknown mergeability",
+      "Invoke-CurrentPrAutoMerge.ps1",
+      "Test-OpenPrManagerState.ps1",
+      "manager-risk stop",
+      "No external SkillOpt runtime dependency",
+      "Rollback"
+    ],
+    "forbidden_candidate_patterns": [
+      "(?i)push\\s+directly\\s+to\\s+main",
+      "(?i)skip\\s+mergeability",
+      "(?i)comment\\s+gates\\s+are\\s+optional",
+      "(?i)ask\\s+the\\s+manager\\s+to\\s+inspect\\s+raw\\s+GitHub"
+    ]
+  },
+  "rollback": {
+    "strategy": "Restore the baseline main-sync SKILL.md from the rollback artifact if the candidate weakens merge/comment safety gates.",
+    "steps": [
+      "Copy examples/skillopt-core-rollout/main-sync/rollback/SKILL.md over both Codex Desktop main-sync SKILL.md targets.",
+      "Rerun scripts/Test-SkillOptimizationValidationHarness.ps1 for this spec.",
+      "Do not claim PR_READY, merge-ready, or MERGED_DONE until mergeability and comment gates pass."
+    ]
+  },
+  "safety_boundaries": {
+    "skillopt_runtime_dependency_adopted": false,
+    "host_global_mutation": false,
+    "credential_or_secret_access": false,
+    "recursive_ai_or_subagent_call": false,
+    "destructive_or_irreversible_action": false,
+    "paid_billing_or_model_loop": false,
+    "public_release_or_share": false
+  },
+  "computed_result": {
+    "baseline_score": 8,
+    "candidate_score": 12,
+    "improved_cases": 4,
+    "regressions": 0,
+    "gate_passed": true
+  },
+  "final_decision": {
+    "decision": "adopt_with_changes",
+    "reason": "Candidate strengthens high-risk main synchronization gates while preserving manager-visible reporting, rollback, and safety boundaries."
+  }
+}

@@ -1,0 +1,7 @@
+interface:
+  display_name: "메인동기화"
+  short_description: "브랜치를 PR로 main에 반영하고 로컬 main까지 동기화"
+  default_prompt: "Use $main-sync. 현재 브랜치를 PR로 main에 반영하고, 가능하면 merge 후 local main도 pull해줘."
+
+policy:
+  allow_implicit_invocation: true

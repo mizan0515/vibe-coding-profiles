@@ -1,0 +1,111 @@
+{
+  "schema_version": "skill-optimization-validation-harness-v1",
+  "harness_id": "issue-885-pr-feedback-resolver-core-rollout",
+  "issue": "#810",
+  "subject": {
+    "skill_name": "pr-feedback-resolver",
+    "optimization_goal": "Preserve PR comment/review-thread gates and manager-burden handling in a high-risk core-control skill.",
+    "owner_surface": [
+      "runtime/codex-desktop/profile-template/skills/pr-feedback-resolver/SKILL.md",
+      "runtime/codex-desktop/marketplace/plugins/codex-isolated-skills/skills/pr-feedback-resolver/SKILL.md",
+      "examples/skillopt-core-rollout/pr-feedback-resolver"
+    ],
+    "repo_local_only": true
+  },
+  "baseline": {
+    "kind": "current_skill",
+    "skill_path": "examples/skillopt-core-rollout/pr-feedback-resolver/baseline/SKILL.md",
+    "summary": "Baseline requires PR evidence and mergeability helpers but does not explicitly block readiness on comment-gate follow-up signals."
+  },
+  "candidate": {
+    "kind": "optimized_skill",
+    "skill_path": "examples/skillopt-core-rollout/pr-feedback-resolver/candidate/SKILL.md",
+    "summary": "Candidate adds explicit blockers for unresolved review threads, linked issue comment follow-up, unknown mergeability, and failed checks."
+  },
+  "validation_set": [
+    {
+      "id": "case-01-frontmatter-trigger",
+      "requirement": "Preserve skill name and trigger discoverability.",
+      "baseline_result": "pass",
+      "candidate_result": "pass",
+      "must_preserve": true,
+      "evidence": "Baseline and candidate keep name pr-feedback-resolver and Trigger phrase."
+    },
+    {
+      "id": "case-02-comment-gate-follow-up",
+      "requirement": "Block PR_READY, merge-ready, or Done on PR or issue comment follow-up signals.",
+      "baseline_result": "partial",
+      "candidate_result": "pass",
+      "must_preserve": true,
+      "evidence": "Candidate explicitly names COMMENT_FOLLOWUP_NEEDED and ISSUE_COMMENT_FOLLOWUP_NEEDED as blockers."
+    },
+    {
+      "id": "case-03-review-thread-blockers",
+      "requirement": "Treat unresolved review threads, requested changes, unknown mergeability, and failed checks as readiness blockers.",
+      "baseline_result": "partial",
+      "candidate_result": "pass",
+      "must_preserve": true,
+      "evidence": "Candidate adds these blockers to the procedure."
+    },
+    {
+      "id": "case-04-manager-burden",
+      "requirement": "Do not push raw GitHub state inspection back to the manager when data is unavailable.",
+      "baseline_result": "partial",
+      "candidate_result": "pass",
+      "must_preserve": true,
+      "evidence": "Candidate requires blocked/unverified reporting with command failure and retry condition."
+    },
+    {
+      "id": "case-05-safety-rollback",
+      "requirement": "Preserve no peer/subagent, no destructive git, no secret access, and rollback.",
+      "baseline_result": "pass",
+      "candidate_result": "pass",
+      "must_preserve": true,
+      "evidence": "Candidate keeps safety rules and rollback artifact exists."
+    }
+  ],
+  "protected_terms": {
+    "required_in_candidate": [
+      "Trigger:",
+      "unresolved review threads",
+      "linked issue comment",
+      "COMMENT_FOLLOWUP_NEEDED",
+      "ISSUE_COMMENT_FOLLOWUP_NEEDED",
+      "blocked/unverified",
+      "Rollback"
+    ],
+    "forbidden_candidate_patterns": [
+      "(?i)skip\\s+comment\\s+gate",
+      "(?i)review\\s+threads\\s+are\\s+optional",
+      "(?i)ask\\s+the\\s+manager\\s+to\\s+inspect\\s+raw\\s+GitHub"
+    ]
+  },
+  "rollback": {
+    "strategy": "Restore the baseline pr-feedback-resolver SKILL.md from the rollback artifact if the candidate hides review/comment blockers.",
+    "steps": [
+      "Copy examples/skillopt-core-rollout/pr-feedback-resolver/rollback/SKILL.md over both Codex Desktop pr-feedback-resolver SKILL.md targets.",
+      "Rerun scripts/Test-SkillOptimizationValidationHarness.ps1 for this spec.",
+      "Do not claim PR feedback readiness if comment/review evidence is unavailable."
+    ]
+  },
+  "safety_boundaries": {
+    "skillopt_runtime_dependency_adopted": false,
+    "host_global_mutation": false,
+    "credential_or_secret_access": false,
+    "recursive_ai_or_subagent_call": false,
+    "destructive_or_irreversible_action": false,
+    "paid_billing_or_model_loop": false,
+    "public_release_or_share": false
+  },
+  "computed_result": {
+    "baseline_score": 7,
+    "candidate_score": 10,
+    "improved_cases": 3,
+    "regressions": 0,
+    "gate_passed": true
+  },
+  "final_decision": {
+    "decision": "adopt_with_changes",
+    "reason": "Candidate strengthens high-risk PR feedback readiness gates while preserving safety and rollback."
+  }
+}

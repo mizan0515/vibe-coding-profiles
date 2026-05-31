@@ -1,0 +1,7 @@
+interface:
+  display_name: "외부 도입 검토"
+  short_description: "GitHub repo와 오픈소스 후보를 현재 프로젝트에 도입할지 판단하고 티켓으로 닫습니다."
+  default_prompt: "Use $external-adoption-review. 외부 GitHub repo나 awesome list 후보를 현재 프로젝트 목표와 운영 부담 기준으로 검토하고, 즉시도입/파일럿/조건부도입/백로그/제외 티켓으로 닫아줘."
+
+policy:
+  allow_implicit_invocation: true

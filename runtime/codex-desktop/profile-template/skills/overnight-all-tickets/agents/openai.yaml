@@ -1,0 +1,7 @@
+interface:
+  display_name: "밤샘전체티켓"
+  short_description: "parent /goal 하나로 남은 티켓을 밤새 실행할 번들을 생성"
+  default_prompt: "Use $overnight-all-tickets. 남은 티켓을 밤새 최대한 진행할 parent-owned 실행 번들을 만들고, 관리자가 붙여넣을 parent /goal 하나를 준비해줘."
+
+policy:
+  allow_implicit_invocation: true
