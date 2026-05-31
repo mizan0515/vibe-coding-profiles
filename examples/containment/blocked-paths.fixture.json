@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "blocked_categories": [
+    "local shell configuration files",
+    "SSH material",
+    "browser state folders",
+    "account state",
+    "private keys",
+    "private material directories"
+  ],
+  "allowed_result": "dry-run reports category names only; it does not read file contents"
+}
