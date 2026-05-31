@@ -1,23 +1,33 @@
-# Vibe-Coding Profile Pack Source
+# vibe-coding-profiles
 
-Public-safe source material for building Codex and Claude Code profile packs.
-This repository is source guidance, not a live profile home. It references tracked
-template files in this repository and keeps shared, Codex-specific, and
-Claude-specific instructions separate so a packager can assemble each profile
-without reading host-global profile folders or private manager rules.
+Public-safe profile source pack for Codex-oriented maintainer workflows.
 
-## One-command pack check
+This companion repository contains reusable prompts, skills, report templates,
+manifest contracts, and containment fixtures for the main
+`vibe-coding-runtime` project.
+
+Main repository:
+
+```text
+https://github.com/mizan0515/vibe-coding-runtime
+```
+
+## 60-second proof
 
 ```powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-VibeCodingProfilePack.ps1
-```
-
-The check creates a local manifest, verifies that the selected prompts and skills exist, and confirms that the pack remains dry-run by default. It does not write to a live assistant profile.
-
-```powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-VibeCodingProfilePackInstall.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ProfileTemplates.ps1
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ProfileContainmentFixtures.ps1
 ```
+
+## What this proves
+
+- selected Codex and Claude profile source files are tracked in the public repo;
+- install behavior is dry-run by default and refuses host-global targets;
+- Korean and English manager report templates have required closeout sections;
+- containment fixtures document blocked categories without exposing private
+  path contents.
 
 ## What is included
 
@@ -26,46 +36,20 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ProfileCo
 - `runtime/codex-desktop/profile-template/skills/`: selected Codex skills and assets.
 - `runtime/claude-code/profile-template/prompts/`: reusable Claude Code prompt assets.
 - `runtime/claude-code/profile-template/skills/`: selected Claude Code skills.
-- `examples/skillopt-*`: SkillOpt rollout fixtures for selected profile changes.
-- `templates/`: manager-facing closeout templates in Korean and English.
+- `templates/`: Korean and English manager closeout templates.
 - `schemas/profile-pack-manifest.schema.json`: machine-readable pack contract.
 - `examples/containment/blocked-paths.fixture.json`: public-safe containment fixture categories.
+- `examples/profile-pack-manifest.example.json`: committed sample manifest.
 
-## Files
-
-| file | purpose |
-|---|---|
-| `shared-instructions.md` | Rules that belong in both profile packs. |
-| `codex-profile-source.md` | Codex Desktop/CLI profile-pack source material. |
-| `claude-profile-source.md` | Claude Code profile-pack source material. |
-| `source-manifest.json` | Machine-readable source inventory and validation expectations. |
-
-## Source Boundary
+## Source boundary
 
 Use only tracked repository templates and docs listed in `source-manifest.json`.
-Do not copy or inspect host-global Codex or Claude folders, environment files,
-SSH material, browser state, account state, private keys, secret folders,
-runtime logs, or private manager notes.
+Do not copy or inspect host-global Codex or Claude folders, shell configuration
+files, SSH material, browser state, account state, private keys, private
+material folders, runtime logs, or private manager notes.
 
-## Build Intent
+## Project status
 
-The pack target is a manager-friendly "vibe-coding" setup where the assistant
-owns routine git, GitHub, validation, security checks, and evidence collection.
-The manager decides only product meaning, credentials, billing, public release,
-destructive actions, host-global promotion, or user-data transfer risk.
-
-## Validation
-
-Run the profile-pack validator:
-
-```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-VibeCodingProfilePack.ps1
-```
-
-Run the template validator:
-
-```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ProfileTemplates.ps1
-```
-
-The OpenAI Codex for Open Source form has not been submitted.
+`v0.1.0` is the first public companion release for
+`vibe-coding-runtime`. This repository supports the application package; the
+runtime repository is the primary submission URL.

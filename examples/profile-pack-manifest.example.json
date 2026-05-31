@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "always_on_rules": [
+    "profiles/shared-instructions.md",
+    "profiles/codex-profile-source.md",
+    "profiles/claude-profile-source.md"
+  ],
+  "on_demand_skills": [
+    "runtime/codex-desktop/profile-template/skills/external-adoption-review",
+    "runtime/codex-desktop/profile-template/skills/main-sync",
+    "runtime/codex-desktop/profile-template/skills/manager-next-work-radar",
+    "runtime/codex-desktop/profile-template/skills/overnight-all-tickets",
+    "runtime/claude-code/profile-template/skills/external-adoption-review"
+  ],
+  "templates": [
+    "templates/manager-report.ko.md",
+    "templates/manager-report.en.md"
+  ],
+  "hooks": [],
+  "validation_scripts": [
+    "scripts/Test-VibeCodingProfilePack.ps1",
+    "scripts/Test-ProfileTemplates.ps1",
+    "scripts/Test-VibeCodingProfilePackInstall.ps1",
+    "scripts/Test-ProfileContainmentFixtures.ps1"
+  ],
+  "safety": {
+    "dry_run_default": true,
+    "host_global_write": "not_performed",
+    "install_requires_explicit_target": true
+  }
+}

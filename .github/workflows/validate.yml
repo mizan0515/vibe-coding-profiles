@@ -22,3 +22,6 @@ jobs:
       - name: Validate containment fixtures
         shell: pwsh
         run: powershell.exe -ExecutionPolicy Bypass -File .\scripts\Test-ProfileContainmentFixtures.ps1
+      - name: Fresh clone proof
+        shell: pwsh
+        run: powershell.exe -ExecutionPolicy Bypass -File .\scripts\Test-FreshClone.ps1
