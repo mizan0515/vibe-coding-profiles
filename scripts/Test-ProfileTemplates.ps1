@@ -17,6 +17,7 @@ $requiredSections = @(
   "manager run/paste",
   "blocked/unverified"
 )
+$invalidReport = Join-Path $repoRoot "examples\reports\invalid-hidden-done.md"
 
 $checks = [System.Collections.Generic.List[object]]::new()
 foreach ($template in $templates) {
@@ -30,11 +31,15 @@ foreach ($template in $templates) {
     }
   }
 }
+$invalidText = Get-Content -LiteralPath $invalidReport -Raw -Encoding UTF8
+$rejectHiddenDone = ($invalidText -match "Done") -and ($invalidText -match "no manager-visible surface")
+$checks.Add([pscustomobject]@{ name = "reject-hidden-done-fixture"; pass = $rejectHiddenDone }) | Out-Null
 
 $failed = @($checks | Where-Object { -not $_.pass })
 $summary = [pscustomobject]@{
   status = if ($failed.Count -eq 0) { "PASS" } else { "FAIL" }
   templates = $templates
+  invalid_report = $invalidReport
   checks = @($checks)
 }
 

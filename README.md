@@ -14,6 +14,11 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-VibeCodin
 
 The check creates a local manifest, verifies that the selected prompts and skills exist, and confirms that the pack remains dry-run by default. It does not write to a live assistant profile.
 
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-VibeCodingProfilePackInstall.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ProfileContainmentFixtures.ps1
+```
+
 ## What is included
 
 - `profiles/`: public source notes for shared, Codex, and Claude behavior.
@@ -23,6 +28,8 @@ The check creates a local manifest, verifies that the selected prompts and skill
 - `runtime/claude-code/profile-template/skills/`: selected Claude Code skills.
 - `examples/skillopt-*`: SkillOpt rollout fixtures for selected profile changes.
 - `templates/`: manager-facing closeout templates in Korean and English.
+- `schemas/profile-pack-manifest.schema.json`: machine-readable pack contract.
+- `examples/containment/blocked-paths.fixture.json`: public-safe containment fixture categories.
 
 ## Files
 

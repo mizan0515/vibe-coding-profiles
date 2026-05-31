@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mizan0515/vibe-coding-profiles/schemas/profile-pack-manifest.schema.json",
+  "title": "Vibe Coding Profile Pack Manifest",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "always_on_rules",
+    "on_demand_skills",
+    "templates",
+    "hooks",
+    "validation_scripts",
+    "safety"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0" },
+    "always_on_rules": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "on_demand_skills": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "templates": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "hooks": { "type": "array", "items": { "type": "string" } },
+    "validation_scripts": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "safety": {
+      "type": "object",
+      "required": ["dry_run_default", "host_global_write", "install_requires_explicit_target"],
+      "properties": {
+        "dry_run_default": { "type": "boolean", "const": true },
+        "host_global_write": { "type": "string", "const": "not_performed" },
+        "install_requires_explicit_target": { "type": "boolean", "const": true }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

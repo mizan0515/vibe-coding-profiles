@@ -13,6 +13,12 @@ jobs:
       - name: Build profile pack manifest
         shell: pwsh
         run: powershell.exe -ExecutionPolicy Bypass -File .\scripts\Test-VibeCodingProfilePack.ps1
+      - name: Validate profile pack install
+        shell: pwsh
+        run: powershell.exe -ExecutionPolicy Bypass -File .\scripts\Test-VibeCodingProfilePackInstall.ps1
       - name: Validate manager templates
         shell: pwsh
         run: powershell.exe -ExecutionPolicy Bypass -File .\scripts\Test-ProfileTemplates.ps1
+      - name: Validate containment fixtures
+        shell: pwsh
+        run: powershell.exe -ExecutionPolicy Bypass -File .\scripts\Test-ProfileContainmentFixtures.ps1
