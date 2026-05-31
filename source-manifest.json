@@ -5,57 +5,42 @@
     "allowed_basis": "tracked repository templates and public docs only",
     "forbidden_basis": [
       "host-global profile folders",
-      "environment files",
-      "ssh material",
+      "local shell configuration files",
+      "SSH material",
       "browser state folders",
       "cloud credentials",
       "private keys",
-      "secret folders",
+      "private material folders",
       "runtime logs",
       "private manager notes"
     ]
   },
   "shared": {
-    "material": "examples/vibe-coding-profiles/shared-instructions.md",
+    "material": "profiles/shared-instructions.md",
     "tracked_sources": [
-      "AGENTS.md",
       "README.md",
-      "docs/oss-public-runtime.md",
-      "docs/public-snapshot-export.md",
-      "docs/manager-guide-public.md",
-      "docs/lean_gradient_discipline.md"
+      "profiles/shared-instructions.md",
+      "templates/manager-report.ko.md",
+      "templates/manager-report.en.md"
     ]
   },
   "codex": {
-    "material": "examples/vibe-coding-profiles/codex-profile-source.md",
+    "material": "profiles/codex-profile-source.md",
     "tracked_sources": [
-      "runtime/codex-desktop/profile-template/AGENTS.md",
-      "runtime/codex-desktop/profile-template/config.toml",
-      "runtime/codex-desktop/profile-template/hooks.json",
-      "runtime/codex-desktop/profile-template/hooks",
       "runtime/codex-desktop/profile-template/prompts",
-      "runtime/codex-desktop/profile-template/skills",
-      "runtime/codex-desktop/profile-template/hot-context"
+      "runtime/codex-desktop/profile-template/skills"
     ]
   },
   "claude": {
-    "material": "examples/vibe-coding-profiles/claude-profile-source.md",
+    "material": "profiles/claude-profile-source.md",
     "tracked_sources": [
-      "runtime/claude-code/profile-template/CLAUDE.md",
-      "runtime/claude-code/profile-template/settings.json",
-      "runtime/claude-code/profile-template/hooks",
       "runtime/claude-code/profile-template/prompts",
-      "runtime/claude-code/profile-template/commands",
-      "runtime/claude-code/profile-template/skills",
-      "runtime/claude-code/profile-template/PORTING_MANIFEST.md",
-      "runtime/claude-code/profile-template/README.md"
+      "runtime/claude-code/profile-template/skills"
     ]
   },
   "validation": {
-    "static_source": "scripts/Test-VibeCodingProfileSource.ps1",
-    "containment": "scripts/Test-CodexContainment.ps1",
-    "codex_static": "scripts/Test-CodexProfileBootstrapRoutePreflight.ps1 -Json",
-    "claude_static": "scripts/Test-ClaudeCodeIsolatedProfile.ps1 -Json",
+    "profile_pack": "scripts/Test-VibeCodingProfilePack.ps1",
+    "templates": "scripts/Test-ProfileTemplates.ps1",
     "real_launch": "UNVERIFIED unless the current environment can launch the actual profile"
   }
 }
