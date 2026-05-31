@@ -1,0 +1,18 @@
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build profile pack manifest
+        shell: pwsh
+        run: powershell.exe -ExecutionPolicy Bypass -File .\scripts\Test-VibeCodingProfilePack.ps1
+      - name: Validate manager templates
+        shell: pwsh
+        run: powershell.exe -ExecutionPolicy Bypass -File .\scripts\Test-ProfileTemplates.ps1

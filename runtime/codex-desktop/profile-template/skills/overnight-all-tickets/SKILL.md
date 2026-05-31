@@ -99,7 +99,7 @@ Audit result rules:
   route to run now, such as repo-local download tooling, public transcript or
   subtitle acquisition, browser DOM evidence, public search/latest docs, local
   sample generation, dependency probe, or existing artifacts to parse. Respect
-  secrets, cookies, `.env`, host-global, and user-data boundaries.
+  secrets, cookies, local shell configuration files, host-global, and user-data boundaries.
 - If a blocker is truly manager-only or hard-external, require command/tool
   evidence showing why Codex could not proceed. An old open issue or old comment
   is not enough.
@@ -217,7 +217,7 @@ gh repo view --json nameWithOwner,url,defaultBranchRef,projectsV2
 gh issue list --state open --json number,title,labels,updatedAt,body,url,projectItems --limit 200
 gh pr list --state open --json number,title,headRefName,baseRefName,isDraft,mergeStateStatus,updatedAt,url --limit 100
 gh issue list --state closed --json number,title,closedAt,labels,url --limit 50
-rg -n "TODO|FIXME|HACK|XXX|pending|deferred|보류|백로그|follow-up|후속" . --glob "!secrets/**" --glob "!.env" --glob "!.env.*" --glob "!.ssh/**" --glob "!**/.ssh/**" --glob "!node_modules/**" --glob "!.git/**" --glob "!dist/**" --glob "!build/**" --glob "!*.original.md"
+rg -n "TODO|FIXME|HACK|XXX|pending|deferred|보류|백로그|follow-up|후속" . --glob "!private-material/**" --glob "!local-config/**" --glob "!node_modules/**" --glob "!.git/**" --glob "!dist/**" --glob "!build/**" --glob "!*.original.md"
 ```
 
 Use repo-local session claim scripts when available. Preserve unrelated
@@ -854,3 +854,4 @@ manager run/paste:
 - [ ] Retired MoA/ROI boundary exists.
 - [ ] Final report uses easy Korean with built/tested/manager-run/blocked
   sections.
+

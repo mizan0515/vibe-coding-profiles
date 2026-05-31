@@ -38,8 +38,8 @@ Procedure:
 Rules:
 - No peer/subagent/recursive AI review path.
 - No force push, direct main push, or destructive history action.
-- No credential, `.env`, `.ssh`, browser profile, cloud credential, or
-  `secrets/**` access.
+- No credential, local shell configuration file, SSH material, browser state
+  folder, cloud credential, or private material folder access.
 - If feedback asks for product priority, paid billing, public release,
   destructive action, host-global mutation, or credential use, stop for manager
   approval.
@@ -52,3 +52,4 @@ tested/evidence: <commands and results>.
 manager run/paste: no manual GitHub/git command needed unless blocked.
 blocked/unverified: <manager-only decision or unavailable evidence>
 ```
+

@@ -40,8 +40,8 @@ Procedure:
 Rules:
 - No peer/subagent/recursive AI review path.
 - No force push, direct main push, or destructive history action.
-- No credential, `.env`, `.ssh`, browser profile, cloud credential, or
-  `secrets/**` access.
+- No credential, local shell configuration file, SSH material, browser state
+  folder, cloud credential, or private material folder access.
 - Do not report `PR_READY`, merge-ready, or Done when comment gates return
   `COMMENT_FOLLOWUP_NEEDED` or `ISSUE_COMMENT_FOLLOWUP_NEEDED`.
 - If GitHub data is unavailable, report `blocked/unverified` with the exact
@@ -64,3 +64,4 @@ tested/evidence: <commands and results>.
 manager run/paste: no manual GitHub/git command needed unless blocked.
 blocked/unverified: <manager-only decision or unavailable evidence>
 ```
+
